@@ -1,15 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>PayPlay.NetClient</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Authors>Your Name</Authors>
     <Company>Your Company</Company>
-    <Description>A .NET 8 client library for PayPlay API</Description>
+    <Description>A .NET 6 client library for PayPlay API</Description>
     <PackageTags>payplay;payment;api;client</PackageTags>
   </PropertyGroup>
 
