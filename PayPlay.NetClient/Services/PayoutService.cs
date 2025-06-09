@@ -13,27 +13,27 @@ public class PayoutService : BaseHttpService, IPayoutService
     {
     }
 
-    public async Task<Payout> CreatePayoutAsync(CreatePayoutRequest request, CancellationToken cancellationToken = default)
+    public async Task<PayoutResponse> CreatePayoutAsync(CreatePayoutRequest request, CancellationToken cancellationToken = default)
     {
         var endpoint = "/payouts";
-        return await PostAsync<Payout>(endpoint, request, cancellationToken);
+        return await PostAsync<PayoutResponse>(endpoint, request, cancellationToken);
     }
 
-    public async Task<Payout> GetPayoutAsync(string payoutId, CancellationToken cancellationToken = default)
+    public async Task<PayoutResponse> GetPayoutAsync(string payoutId, CancellationToken cancellationToken = default)
     {
         var endpoint = $"/payouts/{payoutId}";
-        return await GetAsync<Payout>(endpoint, cancellationToken);
+        return await GetAsync<PayoutResponse>(endpoint, cancellationToken);
     }
 
-    public async Task<PaginatedResponse<Payout>> ListPayoutsAsync(ListPayoutsRequest request, CancellationToken cancellationToken = default)
+    public async Task<PaginatedResponse<PayoutResponse>> ListPayoutsAsync(ListPayoutsRequest request, CancellationToken cancellationToken = default)
     {
         var endpoint = $"/payouts?{BuildQueryString(request)}";
-        return await GetAsync<PaginatedResponse<Payout>>(endpoint, cancellationToken);
+        return await GetAsync<PaginatedResponse<PayoutResponse>>(endpoint, cancellationToken);
     }
 
-    public async Task<Payout> CancelPayoutAsync(string payoutId, CancellationToken cancellationToken = default)
+    public async Task<PayoutResponse> CancelPayoutAsync(string payoutId, CancellationToken cancellationToken = default)
     {
         var endpoint = $"/payouts/{payoutId}/cancel";
-        return await PatchAsync<Payout>(endpoint, null, cancellationToken);
+        return await PatchAsync<PayoutResponse>(endpoint, null, cancellationToken);
     }
 }

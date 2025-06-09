@@ -6,8 +6,8 @@ namespace PayPlay.NetClient.Services.Interfaces;
 
 public interface IPayoutService
 {
-    Task<Payout> CreatePayoutAsync(CreatePayoutRequest request, CancellationToken cancellationToken = default);
-    Task<Payout> GetPayoutAsync(string payoutId, CancellationToken cancellationToken = default);
-    Task<PaginatedResponse<Payout>> ListPayoutsAsync(ListPayoutsRequest request, CancellationToken cancellationToken = default);
-    Task<Payout> CancelPayoutAsync(string payoutId, CancellationToken cancellationToken = default);
+    Task<PayoutResponse> CreatePayoutAsync(CreatePayoutRequest request, CancellationToken cancellationToken = default);
+    Task<PayoutResponse> GetPayoutAsync(string payoutId, CancellationToken cancellationToken = default);
+    Task<PaginatedResponse<PayoutResponse>> ListPayoutsAsync(ListPayoutsRequest request, CancellationToken cancellationToken = default);
+    Task<PayoutResponse> CancelPayoutAsync(string payoutId, CancellationToken cancellationToken = default);
 }

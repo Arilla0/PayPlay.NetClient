@@ -6,11 +6,11 @@ namespace PayPlay.NetClient.Services.Interfaces;
 
 public interface IInvoiceService
 {
-    Task<Invoice> CreateInvoiceAsync(CreateInvoiceRequest request, CancellationToken cancellationToken = default);
-    Task<Invoice> GetInvoiceAsync(string invoiceId, CancellationToken cancellationToken = default);
-    Task<PaginatedResponse<Invoice>> ListInvoicesAsync(ListInvoicesRequest request, CancellationToken cancellationToken = default);
-    Task<Invoice> UpdateInvoiceAsync(string invoiceId, UpdateInvoiceRequest request, CancellationToken cancellationToken = default);
+    Task<InvoiceResponse> CreateInvoiceAsync(CreateInvoiceRequest request, CancellationToken cancellationToken = default);
+    Task<InvoiceResponse> GetInvoiceAsync(string invoiceId, CancellationToken cancellationToken = default);
+    Task<PaginatedResponse<InvoiceResponse>> ListInvoicesAsync(ListInvoicesRequest request, CancellationToken cancellationToken = default);
+    Task<InvoiceResponse> UpdateInvoiceAsync(string invoiceId, UpdateInvoiceRequest request, CancellationToken cancellationToken = default);
     Task DeleteInvoiceAsync(string invoiceId, CancellationToken cancellationToken = default);
-    Task<Invoice> SendInvoiceAsync(string invoiceId, CancellationToken cancellationToken = default);
-    Task<Invoice> MarkAsPaidAsync(string invoiceId, CancellationToken cancellationToken = default);
+    Task<InvoiceResponse> SendInvoiceAsync(string invoiceId, CancellationToken cancellationToken = default);
+    Task<InvoiceResponse> MarkAsPaidAsync(string invoiceId, CancellationToken cancellationToken = default);
 }

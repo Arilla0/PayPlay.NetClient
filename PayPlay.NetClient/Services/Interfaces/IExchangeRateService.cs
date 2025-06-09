@@ -5,6 +5,6 @@ namespace PayPlay.NetClient.Services.Interfaces;
 
 public interface IExchangeRateService
 {
-    Task<ExchangeRate> GetExchangeRateAsync(GetExchangeRateRequest request, CancellationToken cancellationToken = default);
-    Task<List<ExchangeRate>> GetAllExchangeRatesAsync(string baseCurrency, CancellationToken cancellationToken = default);
+    Task<ExchangeRateResponse> GetExchangeRateAsync(GetExchangeRateRequest request, CancellationToken cancellationToken = default);
+    Task<List<ExchangeRateResponse>> GetAllExchangeRatesAsync(string baseCurrency, CancellationToken cancellationToken = default);
 }

@@ -6,10 +6,10 @@ namespace PayPlay.NetClient.Services.Interfaces;
 
 public interface IPaymentService
 {
-    Task<Payment> CreatePaymentAsync(CreatePaymentRequest request, CancellationToken cancellationToken = default);
-    Task<Payment> GetPaymentAsync(string paymentId, CancellationToken cancellationToken = default);
-    Task<PaginatedResponse<Payment>> ListPaymentsAsync(ListPaymentsRequest request, CancellationToken cancellationToken = default);
-    Task<PaymentRefund> RefundPaymentAsync(string paymentId, RefundPaymentRequest request, CancellationToken cancellationToken = default);
-    Task<Payment> CancelPaymentAsync(string paymentId, CancellationToken cancellationToken = default);
-    Task<PaginatedResponse<PaymentRefund>> ListRefundsAsync(string paymentId, int page = 1, int pageSize = 20, CancellationToken cancellationToken = default);
+    Task<PaymentResponse> CreatePaymentAsync(CreatePaymentRequest request, CancellationToken cancellationToken = default);
+    Task<PaymentResponse> GetPaymentAsync(string paymentId, CancellationToken cancellationToken = default);
+    Task<PaginatedResponse<PaymentResponse>> ListPaymentsAsync(ListPaymentsRequest request, CancellationToken cancellationToken = default);
+    Task<PaymentRefundResponse> RefundPaymentAsync(string paymentId, RefundPaymentRequest request, CancellationToken cancellationToken = default);
+    Task<PaymentResponse> CancelPaymentAsync(string paymentId, CancellationToken cancellationToken = default);
+    Task<PaginatedResponse<PaymentRefundResponse>> ListRefundsAsync(string paymentId, int page = 1, int pageSize = 20, CancellationToken cancellationToken = default);
 }

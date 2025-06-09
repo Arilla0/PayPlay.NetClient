@@ -12,15 +12,15 @@ public class ExchangeRateService : BaseHttpService, IExchangeRateService
     {
     }
 
-    public async Task<List<ExchangeRate>> GetAllExchangeRatesAsync(string baseCurrency, CancellationToken cancellationToken = default)
+    public async Task<List<ExchangeRateResponse>> GetAllExchangeRatesAsync(string baseCurrency, CancellationToken cancellationToken = default)
     {
         var endpoint = $"/exchange-rates/{baseCurrency}";
-        return await GetAsync<List<ExchangeRate>>(endpoint, cancellationToken);
+        return await GetAsync<List<ExchangeRateResponse>>(endpoint, cancellationToken);
     }
 
-    public async Task<ExchangeRate> GetExchangeRateAsync(GetExchangeRateRequest request, CancellationToken cancellationToken = default)
+    public async Task<ExchangeRateResponse> GetExchangeRateAsync(GetExchangeRateRequest request, CancellationToken cancellationToken = default)
     {
         var endpoint = $"/exchange-rates/{request.FromCurrency}/{request.ToCurrency}";
-        return await GetAsync<ExchangeRate>(endpoint, cancellationToken);
+        return await GetAsync<ExchangeRateResponse>(endpoint, cancellationToken);
     }
 }

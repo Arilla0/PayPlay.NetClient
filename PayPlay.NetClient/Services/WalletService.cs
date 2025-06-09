@@ -13,27 +13,27 @@ public class WalletService : BaseHttpService, IWalletService
     {
     }
 
-    public async Task<List<WalletBalance>> GetAllBalancesAsync(CancellationToken cancellationToken = default)
+    public async Task<List<WalletBalanceResponse>> GetAllBalancesAsync(CancellationToken cancellationToken = default)
     {
         var endpoint = "/wallets/balances";
-        return await GetAsync<List<WalletBalance>>(endpoint, cancellationToken);
+        return await GetAsync<List<WalletBalanceResponse>>(endpoint, cancellationToken);
     }
 
-    public async Task<Wallet> GetWalletAsync(string walletId, CancellationToken cancellationToken = default)
+    public async Task<WalletResponse> GetWalletAsync(string walletId, CancellationToken cancellationToken = default)
     {
         var endpoint = $"/wallets/{walletId}";
-        return await GetAsync<Wallet>(endpoint, cancellationToken);
+        return await GetAsync<WalletResponse>(endpoint, cancellationToken);
     }
 
-    public async Task<WalletBalance> GetWalletBalanceAsync(string walletId, CancellationToken cancellationToken = default)
+    public async Task<WalletBalanceResponse> GetWalletBalanceAsync(string walletId, CancellationToken cancellationToken = default)
     {
         var endpoint = $"/wallets/{walletId}/balance";
-        return await GetAsync<WalletBalance>(endpoint, cancellationToken);
+        return await GetAsync<WalletBalanceResponse>(endpoint, cancellationToken);
     }
 
-    public async Task<PaginatedResponse<Wallet>> ListWalletsAsync(ListWalletsRequest request, CancellationToken cancellationToken = default)
+    public async Task<PaginatedResponse<WalletResponse>> ListWalletsAsync(ListWalletsRequest request, CancellationToken cancellationToken = default)
     {
         var endpoint = $"/wallets?{BuildQueryString(request)}";
-        return await GetAsync<PaginatedResponse<Wallet>>(endpoint, cancellationToken);
+        return await GetAsync<PaginatedResponse<WalletResponse>>(endpoint, cancellationToken);
     }
 }

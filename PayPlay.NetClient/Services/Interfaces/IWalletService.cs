@@ -6,8 +6,8 @@ namespace PayPlay.NetClient.Services.Interfaces;
 
 public interface IWalletService
 {
-    Task<Wallet> GetWalletAsync(string walletId, CancellationToken cancellationToken = default);
-    Task<PaginatedResponse<Wallet>> ListWalletsAsync(ListWalletsRequest request, CancellationToken cancellationToken = default);
-    Task<WalletBalance> GetWalletBalanceAsync(string walletId, CancellationToken cancellationToken = default);
-    Task<List<WalletBalance>> GetAllBalancesAsync(CancellationToken cancellationToken = default);
+    Task<WalletResponse> GetWalletAsync(string walletId, CancellationToken cancellationToken = default);
+    Task<PaginatedResponse<WalletResponse>> ListWalletsAsync(ListWalletsRequest request, CancellationToken cancellationToken = default);
+    Task<WalletBalanceResponse> GetWalletBalanceAsync(string walletId, CancellationToken cancellationToken = default);
+    Task<List<WalletBalanceResponse>> GetAllBalancesAsync(CancellationToken cancellationToken = default);
 }

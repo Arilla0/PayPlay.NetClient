@@ -14,11 +14,11 @@ public class CustomerService : BaseHttpService, ICustomerService
     {
     }
 
-    public async Task<Customer> CreateCustomerAsync(CreateCustomerRequest request, CancellationToken cancellationToken = default)
+    public async Task<CustomerResponse> CreateCustomerAsync(CreateCustomerRequest request, CancellationToken cancellationToken = default)
     {
         var response = await HttpClient.PostAsJsonAsync("customers", request, cancellationToken);
         response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<Customer>(cancellationToken: cancellationToken);
+        return await response.Content.ReadFromJsonAsync<CustomerResponse>(cancellationToken: cancellationToken);
     }
 
     public async Task DeleteCustomerAsync(string customerId, CancellationToken cancellationToken = default)
@@ -27,25 +27,25 @@ public class CustomerService : BaseHttpService, ICustomerService
         response.EnsureSuccessStatusCode();
     }
 
-    public async Task<Customer> GetCustomerAsync(string customerId, CancellationToken cancellationToken = default)
+    public async Task<CustomerResponse> GetCustomerAsync(string customerId, CancellationToken cancellationToken = default)
     {
         var response = await HttpClient.GetAsync($"customers/{customerId}", cancellationToken);
         response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<Customer>(cancellationToken: cancellationToken);
+        return await response.Content.ReadFromJsonAsync<CustomerResponse>(cancellationToken: cancellationToken);
     }
 
-    public async Task<PaginatedResponse<Customer>> ListCustomersAsync(ListCustomersRequest request, CancellationToken cancellationToken = default)
+    public async Task<PaginatedResponse<CustomerResponse>> ListCustomersAsync(ListCustomersRequest request, CancellationToken cancellationToken = default)
     {
         var query = BuildQueryString(request);
         var response = await HttpClient.GetAsync($"customers?{query}", cancellationToken);
         response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<PaginatedResponse<Customer>>(cancellationToken: cancellationToken);
+        return await response.Content.ReadFromJsonAsync<PaginatedResponse<CustomerResponse>>(cancellationToken: cancellationToken);
     }
 
-    public async Task<Customer> UpdateCustomerAsync(string customerId, UpdateCustomerRequest request, CancellationToken cancellationToken = default)
+    public async Task<CustomerResponse> UpdateCustomerAsync(string customerId, UpdateCustomerRequest request, CancellationToken cancellationToken = default)
     {
         var response = await HttpClient.PutAsJsonAsync($"customers/{customerId}", request, cancellationToken);
         response.EnsureSuccessStatusCode();
-        return await response.Content.ReadFromJsonAsync<Customer>(cancellationToken: cancellationToken);
+        return await response.Content.ReadFromJsonAsync<CustomerResponse>(cancellationToken: cancellationToken);
     }
 }

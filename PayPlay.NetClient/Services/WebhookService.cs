@@ -15,9 +15,9 @@ public class WebhookService : BaseHttpService, IWebhookService
     {
     }
 
-    public async Task<Webhook> CreateWebhookAsync(CreateWebhookRequest request, CancellationToken cancellationToken = default)
+    public async Task<WebhookResponse> CreateWebhookAsync(CreateWebhookRequest request, CancellationToken cancellationToken = default)
     {
-        return await PostAsync<Webhook>("webhooks", request, cancellationToken);
+        return await PostAsync<WebhookResponse>("webhooks", request, cancellationToken);
     }
 
     public async Task DeleteWebhookAsync(string webhookId, CancellationToken cancellationToken = default)
@@ -25,15 +25,15 @@ public class WebhookService : BaseHttpService, IWebhookService
         await DeleteAsync($"webhooks/{webhookId}", cancellationToken);
     }
 
-    public async Task<PaginatedResponse<Webhook>> ListWebhooksAsync(ListWebhooksRequest request, CancellationToken cancellationToken = default)
+    public async Task<PaginatedResponse<WebhookResponse>> ListWebhooksAsync(ListWebhooksRequest request, CancellationToken cancellationToken = default)
     {
         var queryString = BuildQueryString(request);
-        return await GetAsync<PaginatedResponse<Webhook>>($"webhooks{queryString}", cancellationToken);
+        return await GetAsync<PaginatedResponse<WebhookResponse>>($"webhooks{queryString}", cancellationToken);
     }
 
-    public async Task<Webhook> UpdateWebhookAsync(string webhookId, CreateWebhookRequest request, CancellationToken cancellationToken = default)
+    public async Task<WebhookResponse> UpdateWebhookAsync(string webhookId, CreateWebhookRequest request, CancellationToken cancellationToken = default)
     {
-        return await PutAsync<Webhook>($"webhooks/{webhookId}", request, cancellationToken);
+        return await PutAsync<WebhookResponse>($"webhooks/{webhookId}", request, cancellationToken);
     }
 
     public Task<bool> ValidateWebhookSignature(string payload, string signature, string secret)
