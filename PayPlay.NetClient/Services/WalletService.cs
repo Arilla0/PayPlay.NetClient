@@ -13,26 +13,27 @@ public class WalletService : BaseHttpService, IWalletService
     {
     }
 
-    public Task<List<WalletBalance>> GetAllBalancesAsync(CancellationToken cancellationToken = default)
+    public async Task<List<WalletBalance>> GetAllBalancesAsync(CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var endpoint = "/wallets/balances";
+        return await GetAsync<List<WalletBalance>>(endpoint, cancellationToken);
     }
 
-    public Task<Wallet> GetWalletAsync(string walletId, CancellationToken cancellationToken = default)
+    public async Task<Wallet> GetWalletAsync(string walletId, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var endpoint = $"/wallets/{walletId}";
+        return await GetAsync<Wallet>(endpoint, cancellationToken);
     }
 
-    public Task<WalletBalance> GetWalletBalanceAsync(string walletId, CancellationToken cancellationToken = default)
+    public async Task<WalletBalance> GetWalletBalanceAsync(string walletId, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var endpoint = $"/wallets/{walletId}/balance";
+        return await GetAsync<WalletBalance>(endpoint, cancellationToken);
     }
 
-    public Task<PaginatedResponse<Wallet>> ListWalletsAsync(ListWalletsRequest request, CancellationToken cancellationToken = default)
+    public async Task<PaginatedResponse<Wallet>> ListWalletsAsync(ListWalletsRequest request, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var endpoint = $"/wallets?{BuildQueryString(request)}";
+        return await GetAsync<PaginatedResponse<Wallet>>(endpoint, cancellationToken);
     }
-
-    // TODO: Implement all interface methods
-    // This is a stub implementation that needs to be completed
 }

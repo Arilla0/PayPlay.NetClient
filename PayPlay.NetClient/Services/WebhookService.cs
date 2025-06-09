@@ -1,43 +1,63 @@
-using Microsoft.Extensions.Logging;
+namespace PayPlay.NetClient.Models.Requests;
+using System.Security.Cryptography;
+using System.Text;
 using PayPlay.NetClient.Models.Common;
-using PayPlay.NetClient.Models.Requests;
 using PayPlay.NetClient.Models.Responses;
+using PayPlay.NetClient.Services;
 using PayPlay.NetClient.Services.Interfaces;
+using Microsoft.Extensions.Logging;
 
-namespace PayPlay.NetClient.Services;
 
 public class WebhookService : BaseHttpService, IWebhookService
 {
-    public WebhookService(HttpClient httpClient, ILogger<WebhookService> logger) 
+    public WebhookService(HttpClient httpClient, ILogger<WebhookService> logger)
         : base(httpClient, logger)
     {
     }
 
-    public Task<Webhook> CreateWebhookAsync(CreateWebhookRequest request, CancellationToken cancellationToken = default)
+    public async Task<Webhook> CreateWebhookAsync(CreateWebhookRequest request, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return await PostAsync<Webhook>("webhooks", request, cancellationToken);
     }
 
-    public Task DeleteWebhookAsync(string webhookId, CancellationToken cancellationToken = default)
+    public async Task DeleteWebhookAsync(string webhookId, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        await DeleteAsync($"webhooks/{webhookId}", cancellationToken);
     }
 
-    public Task<PaginatedResponse<Webhook>> ListWebhooksAsync(ListWebhooksRequest request, CancellationToken cancellationToken = default)
+    public async Task<PaginatedResponse<Webhook>> ListWebhooksAsync(ListWebhooksRequest request, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var queryString = BuildQueryString(request);
+        return await GetAsync<PaginatedResponse<Webhook>>($"webhooks{queryString}", cancellationToken);
     }
 
-    public Task<Webhook> UpdateWebhookAsync(string webhookId, CreateWebhookRequest request, CancellationToken cancellationToken = default)
+    public async Task<Webhook> UpdateWebhookAsync(string webhookId, CreateWebhookRequest request, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return await PutAsync<Webhook>($"webhooks/{webhookId}", request, cancellationToken);
     }
 
     public Task<bool> ValidateWebhookSignature(string payload, string signature, string secret)
     {
-        throw new NotImplementedException();
+        using var hmac = new HMACSHA256(Encoding.UTF8.GetBytes(secret));
+        var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(payload));
+        var computedSignature = Convert.ToBase64String(computedHash);
+
+        return Task.FromResult(signature.Equals(computedSignature, StringComparison.Ordinal));
     }
 
-    // TODO: Implement all interface methods
-    // This is a stub implementation that needs to be completed
+    private static string BuildQueryString(ListWebhooksRequest request)
+    {
+        var queryParams = new List<string>();
+
+        if (request.Limit.HasValue)
+            queryParams.Add($"limit={request.Limit.Value}");
+
+        if (request.Offset.HasValue)
+            queryParams.Add($"offset={request.Offset.Value}");
+
+        if (!string.IsNullOrEmpty(request.Status))
+            queryParams.Add($"status={Uri.EscapeDataString(request.Status)}");
+
+        return queryParams.Any() ? $"?{string.Join("&", queryParams)}" : string.Empty;
+    }
 }

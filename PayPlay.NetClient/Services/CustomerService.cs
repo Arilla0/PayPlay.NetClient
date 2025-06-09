@@ -3,6 +3,7 @@ using PayPlay.NetClient.Models.Common;
 using PayPlay.NetClient.Models.Requests;
 using PayPlay.NetClient.Models.Responses;
 using PayPlay.NetClient.Services.Interfaces;
+using System.Net.Http.Json;
 
 namespace PayPlay.NetClient.Services;
 
@@ -13,31 +14,38 @@ public class CustomerService : BaseHttpService, ICustomerService
     {
     }
 
-    public Task<Customer> CreateCustomerAsync(CreateCustomerRequest request, CancellationToken cancellationToken = default)
+    public async Task<Customer> CreateCustomerAsync(CreateCustomerRequest request, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var response = await HttpClient.PostAsJsonAsync("customers", request, cancellationToken);
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<Customer>(cancellationToken: cancellationToken);
     }
 
-    public Task DeleteCustomerAsync(string customerId, CancellationToken cancellationToken = default)
+    public async Task DeleteCustomerAsync(string customerId, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var response = await HttpClient.DeleteAsync($"customers/{customerId}", cancellationToken);
+        response.EnsureSuccessStatusCode();
     }
 
-    public Task<Customer> GetCustomerAsync(string customerId, CancellationToken cancellationToken = default)
+    public async Task<Customer> GetCustomerAsync(string customerId, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var response = await HttpClient.GetAsync($"customers/{customerId}", cancellationToken);
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<Customer>(cancellationToken: cancellationToken);
     }
 
-    public Task<PaginatedResponse<Customer>> ListCustomersAsync(ListCustomersRequest request, CancellationToken cancellationToken = default)
+    public async Task<PaginatedResponse<Customer>> ListCustomersAsync(ListCustomersRequest request, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var query = BuildQueryString(request);
+        var response = await HttpClient.GetAsync($"customers?{query}", cancellationToken);
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<PaginatedResponse<Customer>>(cancellationToken: cancellationToken);
     }
 
-    public Task<Customer> UpdateCustomerAsync(string customerId, UpdateCustomerRequest request, CancellationToken cancellationToken = default)
+    public async Task<Customer> UpdateCustomerAsync(string customerId, UpdateCustomerRequest request, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var response = await HttpClient.PutAsJsonAsync($"customers/{customerId}", request, cancellationToken);
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<Customer>(cancellationToken: cancellationToken);
     }
-
-    // TODO: Implement all interface methods
-    // This is a stub implementation that needs to be completed
 }

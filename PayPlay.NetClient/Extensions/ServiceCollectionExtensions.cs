@@ -6,6 +6,7 @@ using PayPlay.NetClient.Handlers;
 using PayPlay.NetClient.Services;
 using PayPlay.NetClient.Services.Interfaces;
 using Polly.Extensions.Http;
+using PayPlay.NetClient.Models.Requests;
 
 namespace PayPlay.NetClient.Extensions;
 

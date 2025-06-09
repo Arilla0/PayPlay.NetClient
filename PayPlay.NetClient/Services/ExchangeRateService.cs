@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Logging;
-using PayPlay.NetClient.Models.Common;
 using PayPlay.NetClient.Models.Requests;
 using PayPlay.NetClient.Models.Responses;
 using PayPlay.NetClient.Services.Interfaces;
@@ -13,16 +12,15 @@ public class ExchangeRateService : BaseHttpService, IExchangeRateService
     {
     }
 
-    public Task<List<ExchangeRate>> GetAllExchangeRatesAsync(string baseCurrency, CancellationToken cancellationToken = default)
+    public async Task<List<ExchangeRate>> GetAllExchangeRatesAsync(string baseCurrency, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var endpoint = $"/exchange-rates/{baseCurrency}";
+        return await GetAsync<List<ExchangeRate>>(endpoint, cancellationToken);
     }
 
-    public Task<ExchangeRate> GetExchangeRateAsync(GetExchangeRateRequest request, CancellationToken cancellationToken = default)
+    public async Task<ExchangeRate> GetExchangeRateAsync(GetExchangeRateRequest request, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var endpoint = $"/exchange-rates/{request.FromCurrency}/{request.ToCurrency}";
+        return await GetAsync<ExchangeRate>(endpoint, cancellationToken);
     }
-
-    // TODO: Implement all interface methods
-    // This is a stub implementation that needs to be completed
 }

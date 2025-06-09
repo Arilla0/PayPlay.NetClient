@@ -1,10 +1,8 @@
 using System.Net;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.Logging;
-using PayPlay.NetClient.Configuration;
 using PayPlay.NetClient.Exceptions;
 using PayPlay.NetClient.Models.Common;
 
@@ -159,7 +157,7 @@ public abstract class BaseHttpService
         };
     }
 
-    protected string BuildQueryString(object parameters)
+    internal string BuildQueryString(object parameters)
     {
         var properties = parameters.GetType().GetProperties()
             .Where(p => p.GetValue(parameters) != null)

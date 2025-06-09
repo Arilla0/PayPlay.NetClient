@@ -13,41 +13,45 @@ public class InvoiceService : BaseHttpService, IInvoiceService
     {
     }
 
-    public Task<Invoice> CreateInvoiceAsync(CreateInvoiceRequest request, CancellationToken cancellationToken = default)
+    public async Task<Invoice> CreateInvoiceAsync(CreateInvoiceRequest request, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var endpoint = "/invoices";
+        return await PostAsync<Invoice>(endpoint, request, cancellationToken);
     }
 
-    public Task DeleteInvoiceAsync(string invoiceId, CancellationToken cancellationToken = default)
+    public async Task DeleteInvoiceAsync(string invoiceId, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var endpoint = $"/invoices/{invoiceId}";
+        await DeleteAsync(endpoint, cancellationToken);
     }
 
-    public Task<Invoice> GetInvoiceAsync(string invoiceId, CancellationToken cancellationToken = default)
+    public async Task<Invoice> GetInvoiceAsync(string invoiceId, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var endpoint = $"/invoices/{invoiceId}";
+        return await GetAsync<Invoice>(endpoint, cancellationToken);
     }
 
-    public Task<PaginatedResponse<Invoice>> ListInvoicesAsync(ListInvoicesRequest request, CancellationToken cancellationToken = default)
+    public async Task<PaginatedResponse<Invoice>> ListInvoicesAsync(ListInvoicesRequest request, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var endpoint = $"/invoices?{BuildQueryString(request)}";
+        return await GetAsync<PaginatedResponse<Invoice>>(endpoint, cancellationToken);
     }
 
-    public Task<Invoice> MarkAsPaidAsync(string invoiceId, CancellationToken cancellationToken = default)
+    public async Task<Invoice> MarkAsPaidAsync(string invoiceId, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var endpoint = $"/invoices/{invoiceId}/mark-as-paid";
+        return await PatchAsync<Invoice>(endpoint, null, cancellationToken);
     }
 
-    public Task<Invoice> SendInvoiceAsync(string invoiceId, CancellationToken cancellationToken = default)
+    public async Task<Invoice> SendInvoiceAsync(string invoiceId, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var endpoint = $"/invoices/{invoiceId}/send";
+        return await PostAsync<Invoice>(endpoint, null, cancellationToken);
     }
 
-    public Task<Invoice> UpdateInvoiceAsync(string invoiceId, UpdateInvoiceRequest request, CancellationToken cancellationToken = default)
+    public async Task<Invoice> UpdateInvoiceAsync(string invoiceId, UpdateInvoiceRequest request, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var endpoint = $"/invoices/{invoiceId}";
+        return await PutAsync<Invoice>(endpoint, request, cancellationToken);
     }
-
-    // TODO: Implement all interface methods
-    // This is a stub implementation that needs to be completed
 }

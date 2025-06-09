@@ -1,7 +1,6 @@
 using System.Net.Http.Headers;
 using Microsoft.Extensions.Logging;
 using PayPlay.NetClient.Configuration;
-using PayPlay.NetClient.Services.Interfaces;
 
 namespace PayPlay.NetClient.Handlers;
 

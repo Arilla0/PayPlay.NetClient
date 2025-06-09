@@ -13,26 +13,27 @@ public class PayoutService : BaseHttpService, IPayoutService
     {
     }
 
-    public Task<Payout> CancelPayoutAsync(string payoutId, CancellationToken cancellationToken = default)
+    public async Task<Payout> CreatePayoutAsync(CreatePayoutRequest request, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var endpoint = "/payouts";
+        return await PostAsync<Payout>(endpoint, request, cancellationToken);
     }
 
-    public Task<Payout> CreatePayoutAsync(CreatePayoutRequest request, CancellationToken cancellationToken = default)
+    public async Task<Payout> GetPayoutAsync(string payoutId, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var endpoint = $"/payouts/{payoutId}";
+        return await GetAsync<Payout>(endpoint, cancellationToken);
     }
 
-    public Task<Payout> GetPayoutAsync(string payoutId, CancellationToken cancellationToken = default)
+    public async Task<PaginatedResponse<Payout>> ListPayoutsAsync(ListPayoutsRequest request, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var endpoint = $"/payouts?{BuildQueryString(request)}";
+        return await GetAsync<PaginatedResponse<Payout>>(endpoint, cancellationToken);
     }
 
-    public Task<PaginatedResponse<Payout>> ListPayoutsAsync(ListPayoutsRequest request, CancellationToken cancellationToken = default)
+    public async Task<Payout> CancelPayoutAsync(string payoutId, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var endpoint = $"/payouts/{payoutId}/cancel";
+        return await PatchAsync<Payout>(endpoint, null, cancellationToken);
     }
-
-    // TODO: Implement all interface methods
-    // This is a stub implementation that needs to be completed
 }
