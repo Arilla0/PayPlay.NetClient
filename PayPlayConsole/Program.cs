@@ -8,6 +8,8 @@ namespace PayPlayNetClientTest
 {
     class Program
     {
+        private static PayPlayConfiguration? _payPlayConfig;
+
         static void Main(string[] args)
         {
             var builder = new ConfigurationBuilder()
@@ -15,14 +17,14 @@ namespace PayPlayNetClientTest
 
             IConfiguration configuration = builder.Build();
 
-            var payPlayConfig = configuration.GetSection("PayPlayConfiguration").Get<PayPlayConfiguration>();
+            _payPlayConfig = configuration.GetSection("PayPlayConfiguration").Get<PayPlayConfiguration>();
 
             var loggerFactory = LoggerFactory.Create(builder =>
             {
                 builder.AddConsole();
             });
 
-            var payPlayClient = PayPlayNetClient.Create(payPlayConfig, loggerFactory);
+            var payPlayClient = PayPlayNetClient.Create(_payPlayConfig, loggerFactory);
 
             Console.WriteLine("PayPlayNetClient created successfully.");
             Task.Run(async () => 
